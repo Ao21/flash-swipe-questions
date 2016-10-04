@@ -43,7 +43,7 @@
       this.isSwiping = false;
       this.handler = handler;
       this.defaultPosition = 0;
-      this.toggleDelta = -80;
+      this.toggleDelta = -60;
       this.previousPosition = 0;
 
       this.mc = Hammer(question);
@@ -157,7 +157,7 @@
   for (var i = 0; i <= question.length - 1; i++){
     let swipe = new SwipeQuestionManager(question[i]);
     swipe.handler = function (ev) {
-    if (!open) {
+    if (!ev.container.open) {
       window.animation = anime({
         targets: ev.container.getElementsByClassName('help-text'),
         marginTop: {
@@ -184,13 +184,13 @@
           easing: 'easeInOutExpo'
         },
       })
-      open = true;
+      ev.container.open = true;
     } else {
       let elements = ev.container.getElementsByClassName('help-text');
       for (var i = 0; i < elements.length; i++){
         elements[i].removeAttribute('style');
       }
-      open = false;
+      ev.container.open = false;
     }
   }
   }
