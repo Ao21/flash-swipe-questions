@@ -89,7 +89,7 @@
 
       if (ev.deltaX <= this.toggleDelta) {
         console.log('toggled')
-        this.handler.call(this, ev);
+        this.handler.call(this, this);
 
       }
 
@@ -153,14 +153,13 @@
   } ());
 
 
-  let question = document.getElementById('question');
-  let swipe = new SwipeQuestionManager(question);
-
-  swipe.handler = function (ev) {
-    console.log(ev.target);
+  let question = document.getElementsByClassName('form-group');
+  for (var i = 0; i <= question.length - 1; i++){
+    let swipe = new SwipeQuestionManager(question[i]);
+    swipe.handler = function (ev) {
     if (!open) {
       window.animation = anime({
-        targets: '.help-text-1',
+        targets: ev.container.getElementsByClassName('help-text'),
         marginTop: {
           value: [0, 10],
           duration: 300,
@@ -195,6 +194,10 @@
       open = false;
     }
   }
+  }
+  
+
+  
 
 
 
